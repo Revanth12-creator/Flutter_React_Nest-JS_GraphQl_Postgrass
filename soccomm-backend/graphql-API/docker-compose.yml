@@ -1,0 +1,200 @@
+version: "3.8"
+
+services:
+  auth-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./auth
+      # Only build development stage from Dockerfile
+      target: development
+    # Mount our host dir to the docker container
+    # Mount api directory (./api) to (:) docker container (/usr/src/app)
+    # Reflect File changes from host to container
+    volumes:
+      - ./auth:/usr/src/app
+      - /usr/src/app/node_modules/
+    # RUN in debug mode: npm run start:debug --> Also start your vscode debugger
+    # Run in dev mode: npm run start:dev
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5001
+  group-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./group
+      target: development
+    volumes:
+      - ./group:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5002
+    ports:
+      - 5002:5002
+  proadmin-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./proadmin
+      target: development
+    volumes:
+      - ./proadmin:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5003
+    ports:
+      - 5003:5003
+  informational-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./informational
+      target: development
+    volumes:
+      - ./informational:/usr/src/app
+      - /usr/src/app/node_modules/
+
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5004
+    ports:
+      - 5004:5004
+  notification-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./notification
+      target: development
+    volumes:
+      - ./notification:/usr/src/app
+      - /usr/src/app/node_modules/
+
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5005
+    ports:
+      - 5005:5005
+  cart-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./cart
+      target: development
+    volumes:
+      - ./cart:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5007
+    ports:
+      - 5007:5007
+  media-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./media
+      target: development
+    volumes:
+      - ./media:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5008
+    ports:
+      - 5008:5008
+  rating-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./rating
+      target: development
+    volumes:
+      - ./rating:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5009
+    ports:
+      - 5009:5009
+  order-microservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./order
+      target: development
+    volumes:
+      - ./order:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 5010
+    ports:
+      - 5010:5010
+
+  gateway:
+    build:
+      dockerfile: Dockerfile
+      context: ./gateway
+      target: development
+    volumes:
+      - ./gateway:/usr/src/app
+      - /usr/src/app/node_modules/
+    command: npm run start:dev
+    depends_on:
+      - postgres
+      - auth-microservice
+      - group-microservice
+      - proadmin-microservice
+      - informational-microservice
+      - notification-microservice
+      - cart-microservice
+      - media-microservice
+      - rating-microservice
+      - order-microservice
+    environment:
+      DATABASE_URL: postgres://postgres:root@123@postgres:5432/auth
+      NODE_ENV: development
+      PORT: 5000
+
+    ports:
+      - 5000:5000
+
+  postgres:
+    image: postgres:10.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root@123
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - 5050:80

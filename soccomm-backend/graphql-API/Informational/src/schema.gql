@@ -1,0 +1,161 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Message {
+  id: ID!
+  title: String!
+  summary: String!
+  description: String!
+}
+
+type Attribute {
+  id: ID!
+  postattribute: [PostAttribute!]!
+}
+
+type PostAttribute {
+  id: ID!
+  attributeId: String!
+  attributeValue: String
+  attributeUnit: String
+  postId: String!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  post: Post!
+  attribute: Attribute!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Group {
+  id: ID!
+  post: [Post!]!
+}
+
+type User {
+  id: ID!
+  post: [Post!]!
+}
+
+type Post {
+  id: ID!
+  postTitle: String!
+  categoryId: String!
+  groupId: String!
+  isBuy: Boolean
+  userId: String!
+  type: String!
+  description: String!
+  category: Category!
+  group: Group!
+  user: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  postattribute: [PostAttribute!]!
+}
+
+type Category {
+  id: ID!
+  post: [Post!]!
+}
+
+type Query {
+  messageAll: [Message!]!
+  messageOne(id: String!): Message!
+  allPosts: [Post!]!
+  allPostsInDescOrder: [Post!]!
+  getPostsCount: Float!
+  getPostsByCategoryId(catId: String!, toDate: String!, fromDate: String!): [Post!]!
+  getPostsForCategories(toDate: String!, fromDate: String!): [Post!]!
+  getPostCountForGraph(monthsArray: [MonthsArrayInput!]!): [Float!]!
+  post(id: String!): Post!
+  groupcategoryposts(gcPost: GcPostInput!): [Post!]!
+  groupposts(groupId: String!): [Post!]!
+  allpostAttributes: [PostAttribute!]!
+  postAttribute(id: String!): PostAttribute!
+}
+
+input MonthsArrayInput {
+  fromDate: String!
+  toDate: String!
+}
+
+input GcPostInput {
+  groupId: String!
+  categoryId: String!
+}
+
+type Mutation {
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+  removeMessage(id: String!): Message!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: String!): Post!
+  createPostAttribute(createPostAttributeInput: [CreatePostAttributeInput!]!): [PostAttribute!]!
+  updatePostAttribute(updatePostAttributeInput: UpdatePostAttributeInput!): PostAttribute!
+  removePostAttribute(id: String!): PostAttribute!
+}
+
+input CreateMessageInput {
+  title: String!
+  summary: String!
+  description: String!
+}
+
+input UpdateMessageInput {
+  title: String
+  summary: String
+  description: String
+  id: String!
+}
+
+input CreatePostInput {
+  postTitle: String!
+  categoryId: String!
+  groupId: String!
+  isBuy: Boolean
+  userId: String
+  type: String!
+  description: String!
+}
+
+input UpdatePostInput {
+  postTitle: String
+  categoryId: String
+  groupId: String
+  isBuy: Boolean
+  userId: String
+  type: String
+  description: String
+  id: String!
+}
+
+input CreatePostAttributeInput {
+  attributeId: String!
+  attributeValue: String
+  attributeUnit: String
+  postId: String!
+}
+
+input UpdatePostAttributeInput {
+  attributeId: String
+  attributeValue: String
+  attributeUnit: String
+  postId: String
+  id: String!
+}

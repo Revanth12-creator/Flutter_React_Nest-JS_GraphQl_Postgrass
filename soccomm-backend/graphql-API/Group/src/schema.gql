@@ -1,0 +1,142 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type User {
+  id: ID!
+  group: [GroupUser!]!
+}
+
+type GroupUser {
+  id: ID!
+  groupId: String!
+  userId: String!
+  isActive: Boolean!
+  isAdmin: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+  group: Group!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Group {
+  id: ID!
+  name: String
+  type: String!
+  createdat: DateTime!
+  updatedat: DateTime!
+  createdby: String!
+  updatedby: String!
+  description: String
+  groupusers: [GroupUser!]!
+  isactive: Boolean!
+}
+
+type GroupPost {
+  id: String!
+  groupId: String!
+  postId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Query {
+  allgroup: [Group!]!
+  findByType(type: String!): [Group!]!
+  findAllGroupsInRange(toDate: String!, fromDate: String!): [Group!]!
+  searchByGroupName(serach: String!): [Group!]!
+  allprivate: [Group!]!
+  allpublic: [Group!]!
+  group(id: String!): Group!
+  getGroupsCount: Float!
+  getGroupCountForGraph(monthsArray: [MonthsArrayInput!]!): [Float!]!
+  getgroups: [GroupUser!]!
+  allgroupUser: [GroupUser!]!
+  allgroupUserByUserId(userId: String!): [GroupUser!]!
+  groupUser(id: String!): GroupUser!
+  getgroup: [GroupUser!]!
+  groupPosts: [GroupPost!]!
+  groupPost(id: String!): GroupPost!
+}
+
+input MonthsArrayInput {
+  fromDate: String!
+  toDate: String!
+}
+
+type Mutation {
+  createGroup(createGroupInput: CreateGroupInput!): Group!
+  updateGroup(updateGroupInput: UpdateGroupInput!): Group!
+  removeGroup(id: String!): Group!
+  createGroupUser(createGroupUserInput: CreateGroupUserInput!): GroupUser!
+  createGroupUserAll(createGroupUserInput: [CreateGroupUserInput!]!): [GroupUser!]!
+  updateGroupUser(updateGroupUserInput: UpdateGroupUserInput!): GroupUser!
+  removeGroupUser(id: String!): GroupUser!
+  deleteGroupUser(deleteGroupUser: DeleteGroupUserInput!): GroupUser!
+  createGroupPost(createGroupPostInput: CreateGroupPostInput!): GroupPost!
+  updateGroupPost(updateGroupPostInput: UpdateGroupPostInput!): GroupPost!
+  removeGroupPost(id: String!): GroupPost!
+}
+
+input CreateGroupInput {
+  name: String!
+  type: String!
+  createruserId: String
+  isactive: Boolean
+  description: String
+}
+
+input UpdateGroupInput {
+  name: String
+  type: String
+  createruserId: String
+  isactive: Boolean
+  description: String
+  id: String!
+}
+
+input CreateGroupUserInput {
+  groupId: String!
+  userId: String
+  isActive: Boolean
+  isAdmin: Boolean
+}
+
+input UpdateGroupUserInput {
+  groupId: String
+  userId: String
+  isActive: Boolean
+  isAdmin: Boolean
+  id: String!
+}
+
+input DeleteGroupUserInput {
+  groupId: String!
+  userId: String!
+}
+
+input CreateGroupPostInput {
+  groupId: String!
+  postId: String!
+}
+
+input UpdateGroupPostInput {
+  groupId: String
+  postId: String
+  id: String!
+}

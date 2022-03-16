@@ -1,0 +1,43 @@
+/* .css-bshv44-MuiButtonBase-root-MuiListItem-root:hover{
+    background-color: #3492eb !important;
+    color:white;
+}
+
+.css-cveggr-MuiListItemIcon-root:hover{
+    color:white !important
+} */
+
+
+.css-123ttji-MuiDrawer-docked .MuiDrawer-paper{
+        background-color: #b5e48c !important;
+        box-shadow: 1px 1px 1px 1px #b5e48c;
+}
+.css-bshv44-MuiButtonBase-root-MuiListItem-root.Mui-selected{
+    background: white;
+    color:black;
+}
+
+.css-cveggr-MuiListItemIcon-root.Mui-selected{
+    color:white !important
+}
+.css-cveggr-MuiListItemIcon-root{
+    color: black !important;
+}
+.css-10hburv-MuiTypography-root{
+    color: black !important;
+    font-weight: bold;
+}
+
+.css-h4y409-MuiList-root{
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 200px; */
+    position: relative;
+    left: 12.5px;  
+}
+
+.MuiButtonBase-root{
+    margin: 2px !important;
+    padding:7px !important;
+
+}

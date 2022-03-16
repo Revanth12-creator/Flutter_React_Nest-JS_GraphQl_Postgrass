@@ -1,0 +1,110 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type User {
+  id: ID!
+  order: [Order!]!
+}
+
+type Address {
+  id: ID!
+  order: [Order!]!
+}
+
+type Post {
+  id: ID!
+  order: [Order!]!
+}
+
+type Order {
+  id: ID!
+  orderamount: Float!
+  orderdate: DateTime!
+  shippingdate: String!
+  orderstatus: String!
+  orderqty: Float!
+  userId: String!
+  addressId: String!
+  address: [Address!]!
+  postId: String!
+  user: User!
+  post: [Post!]!
+  orderdetail: [OrderDetail!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type OrderDetail {
+  id: ID!
+  orderqty: Float!
+  orderAmount: Float!
+  orderShippingDate: DateTime!
+  orderDate: DateTime!
+  orderId: String!
+  order: Order!
+}
+
+type Query {
+  allorders: [Order!]!
+  order(id: String!): Order!
+  getorders: [OrderDetail!]!
+  allorderDetails: [OrderDetail!]!
+  orderDetail(id: String!): OrderDetail!
+}
+
+type Mutation {
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
+  removeOrder(id: String!): Order!
+  createOrderDetail(createOrderDetailInput: CreateOrderDetailInput!): OrderDetail!
+  updateOrderDetail(updateOrderDetailInput: UpdateOrderDetailInput!): OrderDetail!
+  removeOrderDetail(id: String!): OrderDetail!
+}
+
+input CreateOrderInput {
+  orderamount: Float!
+  shippingdate: String!
+  orderstatus: String!
+  orderqty: Float!
+  userId: String
+  addressId: String!
+}
+
+input UpdateOrderInput {
+  orderamount: Float
+  shippingdate: String
+  orderstatus: String
+  orderqty: Float
+  userId: String
+  addressId: String
+  id: String!
+}
+
+input CreateOrderDetailInput {
+  orderId: String!
+  orderqty: Float!
+  orderAmount: Float!
+  userId: String
+}
+
+input UpdateOrderDetailInput {
+  orderId: String
+  orderqty: Float
+  orderAmount: Float
+  userId: String
+  id: String!
+}

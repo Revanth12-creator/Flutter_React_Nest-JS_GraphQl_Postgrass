@@ -1,0 +1,58 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type User {
+  id: ID!
+  message: [Message!]!
+}
+
+type Message {
+  id: ID!
+  title: String!
+  description: String!
+  summary: String
+  userId: String
+  sendto: String!
+  createdat: DateTime!
+  receivedat: DateTime!
+  createdby: String!
+  receivedby: String!
+  unread: Boolean
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  allmessage: [Message!]!
+  message(id: String!): Message!
+  getPostsByCategoryId(userId: String!, toDate: String!, fromDate: String!): [Message!]!
+}
+
+type Mutation {
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  removeMessage(id: String!): Message!
+}
+
+input CreateMessageInput {
+  title: String!
+  description: String!
+  summery: String!
+  userId: String!
+  sendto: String!
+  unread: Boolean
+}

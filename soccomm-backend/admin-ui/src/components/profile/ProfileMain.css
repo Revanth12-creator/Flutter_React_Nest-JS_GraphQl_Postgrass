@@ -1,0 +1,31 @@
+.profile__image-container { position: relative; } 
+
+.profile__image-container .add-image-icon { 
+    left: 21.875rem;
+    bottom: 6.25rem; 
+} 
+
+.profile__image-container .upload-button{
+    display: block !important;
+    margin: 0 auto !important;   
+}
+
+.profile__image-container .avatar{
+    border: 0.188rem solid #333333;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile__field{
+    display: flex;
+    margin: 1.25rem;
+    height: 1.25rem;   
+}
+
+.profile__field .field-text{
+   margin-left: 1.25rem;
+}
+
+
+

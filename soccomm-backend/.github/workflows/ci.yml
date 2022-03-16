@@ -1,0 +1,47 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+      - "closed"
+    branches: [main]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+      - name: Use NodeJS
+        uses: actions/setup-node@v1
+        with: 
+          node-version: "10.x"
+        
+      - name: clean cache
+        run: npm cache clean --force
+
+      - name: remove node_modules  
+        run: rm -rf node_modules && rm ./package-lock.json
+    
+      - name: install dependencies for root project
+        run: npm install
+
+      - name: install dependencies for multiple child packages  
+        run: |
+          npm run bootstrap
+          npm run boot_strap
+      
+  
+      # - run: npm run rm_fsevents
+      # - run: npm run rebuild
+
+      - name: Test
+        run: npm run test
+        continue-on-error: true
+
+      - name: build
+        run: npm run build
+
+       

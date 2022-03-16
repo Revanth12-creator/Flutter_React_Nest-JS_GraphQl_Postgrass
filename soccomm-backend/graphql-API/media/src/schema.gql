@@ -1,0 +1,103 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Category {
+  id: ID!
+  categoryupload: [CategoryUpload!]!
+}
+
+type CategoryUpload {
+  id: ID!
+  mimetype: String!
+  destination: String!
+  filename: String!
+  path: String!
+  categoryId: String!
+  category: Category!
+}
+
+type GroupUpload {
+  id: ID!
+  mimetype: String
+  destination: String
+  filename: String
+  path: String
+  groupId: String!
+  group: Group!
+}
+
+type Group {
+  id: ID!
+  groupupload: [GroupUpload!]!
+}
+
+type Post {
+  id: ID!
+  postupload: [PostUpload!]!
+}
+
+type PostUpload {
+  id: ID!
+  mimetype: String!
+  destination: String!
+  filename: String!
+  path: String!
+  postId: String!
+  post: Post!
+}
+
+type Upload {
+  id: ID!
+  mimetype: String!
+  destination: String!
+  filename: String!
+  path: String!
+  userId: String!
+  user: User!
+  groupupload: Group!
+  post: Post!
+}
+
+type User {
+  id: ID!
+  upload: [Upload!]!
+}
+
+type Query {
+  allupload: [Upload!]!
+  upload(id: String!): Upload!
+}
+
+type Mutation {
+  createUpload(createUploadInput: CreateUploadInput!): Upload!
+  updateUpload(updateUploadInput: UpdateUploadInput!): Upload!
+  removeUpload(id: String!): Upload!
+}
+
+input CreateUploadInput {
+  mimetype: String!
+  destination: String!
+  filename: String!
+  path: String!
+  userId: String!
+}
+
+input UpdateUploadInput {
+  mimetype: String
+  destination: String
+  filename: String
+  path: String
+  userId: String
+  id: String!
+}

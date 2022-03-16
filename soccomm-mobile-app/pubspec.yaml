@@ -1,0 +1,71 @@
+name: new_project
+description: A new Flutter project.
+
+# Prevent accidental publishing to pub.dev.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  contacts_service:
+  permission_handler:
+  simple_permissions:
+    git:
+      url: https://github.com/tq-systems/simple_permissions.git
+  flutter:
+    sdk: flutter
+  pin_entry_text_field: ^0.1.4
+  flutter_signin_button: ^2.0.0
+  url_launcher:
+  animated_splash_screen:
+  carousel_slider: ^3.0.0
+  cupertino_icons: ^1.0.0
+  graphql_flutter:
+  flutter_localizations:
+    sdk: flutter
+  # flutter_facebook_login: ^3.0.0
+  smooth_star_rating: ^1.1.1
+  flutter_svg: ^0.22.0
+  uuid: ^3.0.4
+  shelf_cors_headers: ^0.1.2
+  # flutter_hooks: ^0.18.0
+  provider: ^6.0.0
+  webview_cookie_manager: ^2.0.5
+  universal_html: ^2.0.8
+  dio: ^4.0.0
+  html: ^0.15.0
+  http:
+  image_picker:
+  localstorage: ^4.0.0+1
+  shared_preferences: ^2.0.8
+  flutter_hooks: ^0.18.0
+  multi_image_picker: ^4.8.01
+  hexcolor: ^2.0.5
+  google_fonts: ^2.1.0
+  iconsax: ^0.0.8
+  favorite_button: ^0.0.4
+  get_storage: ^2.0.3
+  cached_network_image: ^3.1.0
+  multipart_request: ^0.3.1
+  http_parser: ^4.0.0
+  splashscreen:
+  flutter_countdown_timer:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  assets:
+    # Add assets from the images directory to the application.
+    - assets/images/

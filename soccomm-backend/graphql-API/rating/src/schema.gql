@@ -1,0 +1,85 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Applicationrating {
+  id: ID!
+  rating: String!
+  userId: String!
+  feedback: String
+  user: User!
+}
+
+type Post {
+  id: ID!
+  rating: [Rating!]!
+}
+
+type Rating {
+  id: ID!
+  rating: String!
+  feedback: String!
+  userId: String!
+  user: User!
+  postId: String!
+  post: Post!
+}
+
+type User {
+  id: ID!
+  rating: [Rating!]!
+  applicationrating: Applicationrating
+}
+
+type Query {
+  allratings: [Rating!]!
+  rating(id: String!): Applicationrating!
+  allapplicationratings: [Applicationrating!]!
+}
+
+type Mutation {
+  createRating(createRatingInput: CreateRatingInput!): Rating!
+  updateRating(updateRatingInput: UpdateRatingInput!): Rating!
+  removeRating(id: Int!): Rating!
+  createApplicationRating(createApplicationRating: CreateApplicationratingInput!): Applicationrating!
+  updateApplicationRating(updateApplicationRating: UpdateApplicationratingInput!): Applicationrating!
+  removeApplicationRating(id: Int!): Applicationrating!
+}
+
+input CreateRatingInput {
+  rating: String!
+  feedback: String!
+  postId: String!
+  userId: String
+}
+
+input UpdateRatingInput {
+  rating: String
+  feedback: String
+  postId: String
+  userId: String
+  id: String!
+}
+
+input CreateApplicationratingInput {
+  rating: String!
+  userId: String
+  feedback: String
+}
+
+input UpdateApplicationratingInput {
+  rating: String
+  userId: String
+  feedback: String
+  id: String!
+}

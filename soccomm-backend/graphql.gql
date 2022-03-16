@@ -1,0 +1,171 @@
+Create User
+
+mutation{
+  createUser(createUserInput:{
+    username:"demo"
+    email:"demo@gmail.com"
+    password:"12345"
+    role:"user"
+  }){
+    id
+  }
+}
+
+Login User
+
+mutation{
+  login(login:{
+    email:"demo@gmail.com"
+    password:"12345"
+  }){
+    token
+    userId
+  }
+}
+
+Create Adress
+
+mutation{
+  createAddress(createAddressInput:{
+    address1:"bang"
+    address2:"hin"
+    city:"bang"
+    phonenumber:"8074769539"
+    state:"k"
+    zip:"515766"
+  }){
+    userId
+  }
+}
+
+Create Category
+
+mutation{
+  createCategory(createCategoryInput:{
+    name:"book"
+  }){
+    id
+  }
+}
+
+Create Subcategory
+
+mutation{
+  createSubCategory(createSubCategoryInput:{
+    categoryId:"0e3d16b6-b5ae-4020-9243-06f26892376d"
+    name:"how to tarin dragon"
+  }){
+    id
+  }
+}
+
+Create Product
+
+mutation{
+  createProduct(createProductInput:{
+    amount:"3000"
+    categoryId:"0e3d16b6-b5ae-4020-9243-06f26892376d"
+    subcategoryId:"72c9a215-c6ef-4f0a-86ab-765c375d1ffd"
+    description:"train your dragon as per book"
+    name:"How to Train Dragon"
+    quantity:"3"
+
+  }){
+    userId
+  }
+}
+
+Create Group
+
+mutation{
+  createGroup(createGroupInput:{
+    name:"Animation"
+    type:"public"
+  }){
+    __typename
+  }
+}
+
+create Category
+
+mutation{
+  createCategory(createCategoryInput:{
+    name:"blood"
+    level:3
+    parentId:"22a0b8f1-6173-44d6-9647-fec3d17fd0f7"
+    isEnd:true
+  }){
+    id
+  }
+}
+
+create Attribute
+
+mutation{
+  createAttribute(createAttributeInput:{
+    name:"group"
+    description:"blood group"
+    categoryId:"255f9cb8-0743-4750-8a4f-0fe4869a8a31"
+
+  }){
+    id
+  }
+}
+
+create Post
+
+mutation{
+  createPost(createPostInput:{
+    postTitle:"blood donation"
+    description:"i need  blood "
+    groupId:"0b0e5cca-9301-4858-80c9-a252987934a4"
+    categoryId:"255f9cb8-0743-4750-8a4f-0fe4869a8a31"
+     type:"public"
+  }){
+    id
+  }
+}
+
+create Post-Attribute
+
+mutation{
+  createPostAttribute(createPostAttributeInput:{
+    postId:"4c0ad41d-d3b0-45fe-a981-bdec79209a0e"
+    attributeId:"eef4ef53-4f88-48cd-bb89-f5b03f54824a"
+    attributeValue:"0+ev"
+  }){
+    id
+  }
+}
+
+findByLevel
+
+query{
+findByLevel(level:1){
+   id
+    name
+    level
+    child{
+      id
+      name
+      parentId
+    }
+}
+}
+# mutation to post all attributes at a time
+mutation{
+  createPostAttribute(createPostAttributeInput:[
+    {
+    postId:"4c0ad41d-d3b0-45fe-a981-bdec79209a0e"
+    attributeId:"eef4ef53-4f88-48cd-bb89-f5b03f54824a"
+    attributeValue:"0+ev"
+    },
+        {
+    postId:"4c0ad41d-d3b0-45fe-a981-bdec79209a0e"
+    attributeId:"12b3bd0a-eb6b-4407-acb5-cbfd97c66acd"
+    attributeValue:"1L"
+    },
+  ]){
+    id
+  }
+}

@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Attribute {
+  id: ID!
+  name: String!
+  description: String
+  categoryId: String!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  category: Category
+  isActive: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Category {
+  id: ID!
+  name: String!
+  parentId: String
+  parent: Category
+  child: [Category!]
+  level: Int!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  attribute: [Attribute!]
+  isActive: Boolean!
+  isEnd: Boolean!
+}
+
+type Query {
+  allcategory: [Category!]!
+  category(id: String!): Category!
+  findByLevel(level: Float!): [Category!]!
+  getLastLevelCategories: [Category!]!
+  findCountByLevel(level: Float!): String!
+  findByParentId(parentid: String!): [Category!]!
+  allattribute: [Attribute!]!
+  attribute(id: String!): Attribute!
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: String!): Category!
+  createAttribute(createAttributeInput: CreateAttributeInput!): Attribute!
+  updateAttribute(updateAttributeInput: UpdateAttributeInput!): Attribute!
+  removeAttribute(id: String!): Attribute!
+}
+
+input CreateCategoryInput {
+  name: String!
+  parentId: String
+  level: Int!
+  isActive: Boolean
+  isEnd: Boolean = false
+}
+
+input UpdateCategoryInput {
+  name: String
+  parentId: String
+  level: Int
+  isActive: Boolean
+  isEnd: Boolean = false
+  id: String!
+}
+
+input CreateAttributeInput {
+  name: String!
+  description: String
+  categoryId: String!
+  isActive: Boolean
+}
+
+input UpdateAttributeInput {
+  name: String
+  description: String
+  categoryId: String
+  isActive: Boolean
+  id: String!
+}

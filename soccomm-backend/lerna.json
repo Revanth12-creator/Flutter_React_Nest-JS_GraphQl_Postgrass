@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "graphql-API/*"
+  ],
+  "useWorkspaces": true,
+  "version": "0.0.0"
+}

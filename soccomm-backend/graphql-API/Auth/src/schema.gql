@@ -1,0 +1,128 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Address {
+  id: ID!
+  phonenumber: String
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: String!
+  userId: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastLogin: DateTime
+  role: String
+  avatar: String
+  googleId: String
+  facebookId: String
+  address: [Address!]
+  isactive: Boolean
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Jwt {
+  token: String!
+  userId: String!
+  username: String!
+  email: String!
+}
+
+type Query {
+  alluser: [User!]!
+  findAllUsersInRange(toDate: String!, fromDate: String!): [User!]!
+  user(id: String!): User!
+  getCountOfActiveAndInactiveUsers(toDate: String!, fromDate: String!): [Float!]!
+  getUserCountForGraph(monthsArray: [MonthsArrayInput!]!): [Float!]!
+  getUsersByStatus(toDate: String!, fromDate: String!, isActive: Boolean!): [User!]!
+  findCount: String!
+  Alladdress: [Address!]!
+  address(id: String!): Address!
+  phonenumber(phone: String!): Address!
+}
+
+input MonthsArrayInput {
+  fromDate: String!
+  toDate: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+  login(login: LoginInput!): Jwt!
+  createAddress(createAddressInput: CreateAddressInput!): Address!
+  updateAddress(updateAddressInput: UpdateAddressInput!): Address!
+  removeAddress(id: String!): Address!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String
+  avatar: String
+  role: String
+  isactive: Boolean
+  lastLogin: DateTime
+}
+
+input UpdateUserInput {
+  username: String
+  email: String
+  password: String
+  avatar: String
+  role: String
+  isactive: Boolean
+  lastLogin: DateTime
+  id: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input CreateAddressInput {
+  userId: String
+  phonenumber: String!
+  address1: String!
+  address2: String!
+  state: String!
+  city: String!
+  zip: String!
+}
+
+input UpdateAddressInput {
+  userId: String
+  phonenumber: String
+  address1: String
+  address2: String
+  state: String
+  city: String
+  zip: String
+  id: String!
+}
